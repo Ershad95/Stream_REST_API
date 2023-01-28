@@ -3,17 +3,17 @@ Make REST Api with Stream Data with IAsyncEnumerable
 
 Server Side : 
 <pre>
-        [HttpGet]
-        public async IAsyncEnumerable<Customer> Get(CancellationToken cancellationToken)
-        {
-            while (!cancellationToken.IsCancellationRequested && _customers.Any(_ => _.Key % 10 == 0))
-            {
-                var customer = _customers.First(_ => _.Key % 10 == 0);
-                yield return new Customer(customer.Value.Name, customer.Key);
-                _customers.Remove(customer);
-                await Task.Delay(500,cancellationToken);
-            }
-        }
+ [HttpGet]
+  public async IAsyncEnumerable<Customer> Get(CancellationToken cancellationToken)
+   {
+      while (!cancellationToken.IsCancellationRequested && _customers.Any(_ => _.Key % 10 == 0))
+      {
+          var customer = _customers.First(_ => _.Key % 10 == 0);
+           yield return new Customer(customer.Value.Name, customer.Key);
+           _customers.Remove(customer);
+            await Task.Delay(500,cancellationToken);
+       }
+   }
 </pre>
 
 
